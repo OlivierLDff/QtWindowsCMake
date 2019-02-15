@@ -2,7 +2,7 @@
 
 ## What it is
 
-This project provide a CMake macro to help you deploy Qt application to windows. It will generate a deploy target that:
+This project provide a CMake macro to help you deploy Qt application on windows. It will generate a deploy target that:
 
 * Deploy dynamic Qt library near your executable file to create a self-contain application folder.
 * Deploy msvc or mingw c++ runtime library.
@@ -105,7 +105,7 @@ The macro also accepts optional named arguments. Any combination of these argume
 add_qt_windows_exe(my_app
     NAME "My App"
     VERSION "1.2.3"
-	PUBLISHER "My Company"
+    PUBLISHER "My Company"
     PRODUCT_URL "www.myapp.com"
     PACKAGE "org.mycompany.myapp"
     FILE_EXTENSION "appExtension"
