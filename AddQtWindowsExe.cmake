@@ -135,9 +135,13 @@ macro(add_qt_windows_exe TARGET)
 	        set(QT_WINDOWS_APP_NO_TRANSLATION --no-translations)
 	    endif()
 
+	    if(ARG_ALL)
+	    	SET(QT_WINDOWS_ALL ALL)
+	    endif()
+
 		# Create Custom Target
 		ADD_CUSTOM_TARGET(${QT_WINDOWS_APP_DEPLOY_NAME}
-			ALL
+			${QT_WINDOWS_ALL}
 			DEPENDS ${TARGET} ${ARG_DEPENDS}
 			COMMAND ${QT_WINDOWS_QT_ROOT}/bin/windeployqt 
 			${QT_WINDOWS_APP_QML_DIR}
