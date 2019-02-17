@@ -29,4 +29,4 @@ DOWNLOAD_PROJECT(PROJ 	QtWindowsCMake
 	QUIET
 	)
 
-ADD_SUBDIRECTORY( ${QtWindowsCMake_SOURCE_DIR} ${QtWindowsCMake_BINARY_DIR} )
+INCLUDE( ${QtWindowsCMake_SOURCE_DIR}/AddQtWindowsExe.cmake )
