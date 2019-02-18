@@ -201,6 +201,7 @@ macro(add_qt_windows_exe TARGET)
 
 		MESSAGE(STATUS "Add Qt Binary Creator Target for ${TARGET}")
 		add_qt_binary_creator( ${TARGET} 
+			${QT_WINDOWS_ALL}
 			DEPENDS ${QT_WINDOWS_INSTALLER_ADD_DEPLOY} ${ARGWIN_DEPENDS}
 			NAME ${QT_WINDOWS_APP_NAME}
 			VERSION ${QT_WINDOWS_APP_VERSION}
