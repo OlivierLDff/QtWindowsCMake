@@ -43,6 +43,7 @@ include(CMakeParseArguments)
 #)
 
 macro(add_qt_windows_exe TARGET)
+
 	SET(QT_WINDOWS_OPTIONS 
 		ALL
 		NO_DEPLOY
@@ -183,7 +184,7 @@ macro(add_qt_windows_exe TARGET)
 
 	IF(NOT ARGWIN_NO_INSTALLER)
 
-		INCLUDE(${QT_WINDOWS_SOURCE_DIR}/cmake/BuildQBCInstaller.cmake)
+		#INCLUDE(${QT_WINDOWS_SOURCE_DIR}/cmake/BuildQBCInstaller.cmake)
 
 		IF(ARGWIN_INSTALLER_NAME)
 			SET(QT_WINDOWS_INSTALLER_NAME INSTALLER_NAME ${ARGWIN_INSTALLER_NAME})
