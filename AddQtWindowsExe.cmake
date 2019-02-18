@@ -50,7 +50,7 @@ macro(add_qt_windows_exe TARGET)
 		NO_TRANSLATION
 		VERBOSE_INSTALLER
 		)
-	SET(QT_WINDOWS_ONE_VALUE_ARG APP_NAME 
+	SET(QT_WINDOWS_ONE_VALUE_ARG NAME 
 		DEPLOY_NAME 
 		INSTALLER_NAME 
 		VERSION 
@@ -69,7 +69,7 @@ macro(add_qt_windows_exe TARGET)
 
     MESSAGE(STATUS "QtWindowsCMake Configuration")
     MESSAGE(STATUS "TARGET:                 ${TARGET}")
-    MESSAGE(STATUS "APP_NAME:               ${ARGWIN_APP_NAME}")
+    MESSAGE(STATUS "APP_NAME:               ${ARGWIN_NAME}")
     MESSAGE(STATUS "DEPLOY_NAME:            ${ARGWIN_DEPLOY_NAME}")
     MESSAGE(STATUS "INSTALLER_NAME:         ${ARGWIN_INSTALLER_NAME}")
     MESSAGE(STATUS "VERSION:                ${ARGWIN_VERSION}")
@@ -96,8 +96,8 @@ macro(add_qt_windows_exe TARGET)
 	ENDIF(ARGWIN_ICON_RC)
 
     # define the application name
-    if(ARGWIN_APP_NAME)
-        set(QT_WINDOWS_APP_NAME ${ARGWIN_APP_NAME})
+    if(ARGWIN_NAME)
+        set(QT_WINDOWS_APP_NAME ${ARGWIN_NAME})
     else()
         set(QT_WINDOWS_APP_NAME ${TARGET})
     endif()
