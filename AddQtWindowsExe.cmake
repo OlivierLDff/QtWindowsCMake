@@ -64,8 +64,9 @@ macro(add_qt_windows_exe TARGET)
 		QML_DIR 
 		VERBOSE_LEVEL_DEPLOY
 		)
+	SET(QT_WINDOWS_MULTI_VALUE_ARG ) 
 	 # parse the macro arguments
-    cmake_parse_arguments(ARGWIN "${QT_WINDOWS_OPTIONS}" "${QT_WINDOWS_ONE_VALUE_ARG}" ${ARGN})
+    cmake_parse_arguments(ARGWIN "${QT_WINDOWS_OPTIONS}" "${QT_WINDOWS_ONE_VALUE_ARG}" "${QT_WINDOWS_MULTI_VALUE_ARG}" ${ARGN})
 
     MESSAGE(STATUS "QtWindowsCMake Configuration")
     MESSAGE(STATUS "TARGET:                 ${TARGET}")
@@ -198,7 +199,7 @@ macro(add_qt_windows_exe TARGET)
 			SET( QT_WINDOWS_VERBOSE_INSTALLER VERBOSE_INSTALLER)
 		ENDIF(ARGWIN_VERBOSE_INSTALLER)
 
-		add_qt_binary_creator( ${TARGET} 
+		add_qt_binary_creator( TARGET ${TARGET} 
 			DEPENDS ${QT_WINDOWS_INSTALLER_ADD_DEPLOY} ${ARGWIN_DEPENDS}
 			NAME ${QT_WINDOWS_APP_NAME}
 			VERSION ${QT_WINDOWS_APP_VERSION}
