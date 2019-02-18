@@ -67,9 +67,6 @@ macro(add_qt_windows_exe TARGET)
 	 # parse the macro arguments
     cmake_parse_arguments(ARGWIN "${QT_WINDOWS_OPTIONS}" "${QT_WINDOWS_ONE_VALUE_ARG}" ${ARGN})
 
-    MESSAGE(STATUS QT_WINDOWS_OPTIONS : ${QT_WINDOWS_OPTIONS})
-    MESSAGE(STATUS QT_WINDOWS_ONE_VALUE_ARG : ${QT_WINDOWS_ONE_VALUE_ARG})
-
     MESSAGE(STATUS "QtWindowsCMake Configuration")
     MESSAGE(STATUS "TARGET:                 ${TARGET}")
     MESSAGE(STATUS "APP_NAME:               ${ARGWIN_APP_NAME}")
