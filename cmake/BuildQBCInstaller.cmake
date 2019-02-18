@@ -30,4 +30,4 @@ DOWNLOAD_PROJECT(PROJ 	QBCInstaller
 	QUIET
 	)
 
-ADD_SUBDIRECTORY( ${QBCInstaller_SOURCE_DIR} ${QBCInstaller_BINARY_DIR} )
+INCLUDE( ${QBCInstaller_SOURCE_DIR}/AddQtBinaryCreator.cmake )
