@@ -15,6 +15,7 @@ The macro will call program for the qt framework.
 
 * `windeployqt` to deploy dynamic library and qml. Documentation is available [here](https://doc.qt.io/qt-5/windows-deployment.html).
 * `qtinstallerframework` to create installer. Documentation is available [here](https://doc.qt.io/qtinstallerframework/ifw-tools.html).
+  * Behind the scene, the macro will call QtBinaryCreatorCMake project.
 
 This utility has been developed for my own needs. Don't hesitate to use / share / fork / modify / improve it freely :)
 
@@ -24,15 +25,7 @@ This project is conceptually based on the great [QtAndroidCMake of Laurent Gomil
 
 ### How to integrate it to your CMake configuration
 
-The toolchain file defines the ```ANDROID``` variable, so that everything which is added specifically for Android in your CMake files can be surrounded with
-
-```cmake
-IF(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")	
-	...
-ENDIF()
-```
-
-Then all you have to do is to call the ```add_qt_windows_exe``` macro to create a new target that will create the Windows Deployment Targets.
+All you have to do is to call the ```add_qt_windows_exe``` macro to create a new target that will create the Windows Deployment Targets.
 
 ```cmake
 IF(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")	
@@ -45,8 +38,7 @@ The you can simply run
 
 ```bash
 make MyAppDeploy
-make MyAppInstallerX64 # If compiling for 64bits
-make MyAppInstallerX32 # If compiling for 32bits
+make MyAppInstaller
 ```
 
 Of course, ```add_qt_windows_exe``` accepts more options, see below for the detail.
@@ -103,7 +95,7 @@ The macro also accepts optional named arguments. Any combination of these argume
 
 ```cmake
 add_qt_windows_exe(my_app
-    APP_NAME "My App"
+    NAME "My App"
     VERSION "1.2.3"
     PUBLISHER "My Company"
     PRODUCT_URL "www.myapp.com"
@@ -121,7 +113,7 @@ add_qt_windows_exe(my_app
 
 Here is the full list of possible arguments:
 
-**APP_NAME**
+**NAME**
 
 The name of the application. If not given, the name of the source target is taken. The default is `${TARGET}`.
 
@@ -129,7 +121,7 @@ The name of the application. If not given, the name of the source target is take
 
 ```cmake
 add_qt_windows_exe(MyApp
-    APP_NAME "My App"
+    NAME "My App"
 )
 ```
 
