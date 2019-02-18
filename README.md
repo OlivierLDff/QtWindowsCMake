@@ -103,7 +103,7 @@ The macro also accepts optional named arguments. Any combination of these argume
 
 ```cmake
 add_qt_windows_exe(my_app
-    NAME "My App"
+    APP_NAME "My App"
     VERSION "1.2.3"
     PUBLISHER "My Company"
     PRODUCT_URL "www.myapp.com"
@@ -121,7 +121,7 @@ add_qt_windows_exe(my_app
 
 Here is the full list of possible arguments:
 
-**NAME**
+**APP_NAME**
 
 The name of the application. If not given, the name of the source target is taken. The default is `${TARGET}`.
 
@@ -129,7 +129,7 @@ The name of the application. If not given, the name of the source target is take
 
 ```cmake
 add_qt_windows_exe(MyApp
-    NAME "My App"
+    APP_NAME "My App"
 )
 ```
 
