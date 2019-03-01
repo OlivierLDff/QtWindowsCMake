@@ -201,6 +201,18 @@ add_qt_windows_exe(MyApp
 )
 ```
 
+**RUN_PROGRAM**
+
+The program to run with the generated shortcut on install. By default it is set to `${NAME}`.
+
+*Example:*
+
+```cmake
+add_qt_windows_exe(MyApp
+    RUN_PROGRAM "MyApp"
+)
+```
+
 **FILE_EXTENSION**
 
 You can specify extension that will be associate with you app.
