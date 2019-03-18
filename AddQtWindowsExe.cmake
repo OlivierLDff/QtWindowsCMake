@@ -132,14 +132,14 @@ macro(add_qt_windows_exe TARGET)
 
 		# When not using msvc we need to use a dedicated build directory for the target
 		# With msvc the executable is generated inside a Release/ or Debug/ folder
-	    IF( NOT MSVC )
+	    IF( NOT MSVC_IDE )
 			SET_TARGET_PROPERTIES( ${TARGET}
 				PROPERTIES
 				ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib"
 				LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib"
 				RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin"
 			)
-		ENDIF( NOT MSVC )
+		ENDIF( NOT MSVC_IDE )
 
 	    # define the application qml dirs
 	    if(ARGWIN_QML_DIR)
