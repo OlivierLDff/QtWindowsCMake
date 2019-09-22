@@ -168,21 +168,26 @@ macro(add_qt_windows_exe TARGET)
             ${QT_WINDOWS_APP_NO_TRANSLATION}
             --$<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>
             $<TARGET_FILE_DIR:${TARGET}>
+            COMMENT call ${QT_WINDOWS_QT_ROOT}/bin/windeployqt
            )
 
         # DEPLOY MSVC RUNTIME
         if(MSVC)
             INCLUDE(InstallRequiredSystemLibraries)
-            ADD_CUSTOM_COMMAND(TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
-                COMMAND echo Deploy msvc runtime libraries : ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} $<TARGET_FILE_DIR:${TARGET}>)
+            add_custom_command(TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} $<TARGET_FILE_DIR:${TARGET}>
+                COMMENT Deploy msvc runtime libraries : ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
+
+            )
         # DEPLOY MINGW C RUNTIME
         else() # MSVC
-            ADD_CUSTOM_COMMAND(TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
-                COMMAND echo Deploy mingw runtime libraries from ${QT_WINDOWS_QT_ROOT}/bin
+            add_custom_command(TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_ROOT}/bin/libgcc_s_dw2-1.dll $<TARGET_FILE_DIR:${TARGET}>
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_ROOT}/bin/libstdc++-6.dll $<TARGET_FILE_DIR:${TARGET}>
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_ROOT}/bin/libwinpthread-1.dll $<TARGET_FILE_DIR:${TARGET}>)
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_ROOT}/bin/libwinpthread-1.dll $<TARGET_FILE_DIR:${TARGET}>
+                COMMENT Deploy mingw runtime libraries from ${QT_WINDOWS_QT_ROOT}/bin
+            )
+
         endif() # MSVC
 
     endif() # NOT ARGWIN_NO_DEPLOY
