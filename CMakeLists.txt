@@ -7,6 +7,7 @@ endif(NOT Qt5Core_DIR)
 get_filename_component(QT_WINDOWS_QT_ROOT "${Qt5Core_DIR}/../../.." ABSOLUTE)
 message(STATUS "Found Qt for Windows: ${QT_WINDOWS_QT_ROOT}")
 
+set(QT_WINDOWS_QT_ROOT ${QT_WINDOWS_QT_ROOT} CACHE STRING "qt sdk root folder")
 set(QT_WINDOWS_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR} CACHE STRING "add_qt_windows_exe CMakeLists.txt folder")
 
 set(QBC_REPOSITORY "https://github.com/OlivierLDff/QbcInstaller.git" CACHE STRING "Repository of Qbc")
@@ -168,7 +169,7 @@ macro(add_qt_windows_exe TARGET)
             ${QT_WINDOWS_APP_NO_TRANSLATION}
             --$<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>
             $<TARGET_FILE_DIR:${TARGET}>
-            COMMENT call ${QT_WINDOWS_QT_ROOT}/bin/windeployqt
+            COMMENT "call ${QT_WINDOWS_QT_ROOT}/bin/windeployqt"
            )
 
         # DEPLOY MSVC RUNTIME
@@ -176,7 +177,7 @@ macro(add_qt_windows_exe TARGET)
             INCLUDE(InstallRequiredSystemLibraries)
             add_custom_command(TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} $<TARGET_FILE_DIR:${TARGET}>
-                COMMENT Deploy msvc runtime libraries : ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
+                COMMENT "Deploy msvc runtime libraries : ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}"
 
             )
         # DEPLOY MINGW C RUNTIME
@@ -185,7 +186,7 @@ macro(add_qt_windows_exe TARGET)
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_ROOT}/bin/libgcc_s_dw2-1.dll $<TARGET_FILE_DIR:${TARGET}>
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_ROOT}/bin/libstdc++-6.dll $<TARGET_FILE_DIR:${TARGET}>
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_ROOT}/bin/libwinpthread-1.dll $<TARGET_FILE_DIR:${TARGET}>
-                COMMENT Deploy mingw runtime libraries from ${QT_WINDOWS_QT_ROOT}/bin
+                COMMENT "Deploy mingw runtime libraries from ${QT_WINDOWS_QT_ROOT}/bin"
             )
 
         endif() # MSVC
