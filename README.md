@@ -29,7 +29,12 @@ All you have to do is to call the ```add_qt_windows_exe``` macro to create a new
 
 ```cmake
 IF(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")	
-    INCLUDE(QtWindowsDeploy/AddQtWindowsExe.cmake)
+    FetchContent_Declare(
+            QtWindowsCMake
+            GIT_REPOSITORY "https://github.com/OlivierLDff/QtWindowsCMake"
+            GIT_TAG        master
+        )
+    FetchContent_MakeAvailable(QtWindowsCMake)
     add_qt_windows_exe(MyApp)
 ENDIF()
 ```
