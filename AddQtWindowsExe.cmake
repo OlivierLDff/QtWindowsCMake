@@ -1,7 +1,7 @@
 # find the Qt root directory
 if(NOT Qt5Core_DIR)
     find_package(Qt5Core REQUIRED)
-endif(NOT Qt5Core_DIR)
+endif() # NOT Qt5Core_DIR
 get_filename_component(QT_WINDOWS_QT_ROOT "${Qt5Core_DIR}/../../.." ABSOLUTE)
 message(STATUS "Found Qt for Windows: ${QT_WINDOWS_QT_ROOT}")
 
@@ -10,6 +10,8 @@ set(QT_WINDOWS_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR} CACHE STRING "add_qt_windows
 
 set(QBC_REPOSITORY "https://github.com/OlivierLDff/QbcInstaller.git" CACHE STRING "Repository of Qbc")
 set(QBC_TAG "master" CACHE STRING "Git Tag of Qbc")
+
+include(FetchContent)
 
 # Qbc
 FetchContent_Declare(
