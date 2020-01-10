@@ -175,7 +175,7 @@ macro(add_qt_windows_exe TARGET)
         # DEPLOY MSVC RUNTIME
         if(MSVC)
             INCLUDE(InstallRequiredSystemLibraries)
-            if(${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS})
+            if(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS)
                 add_custom_command(TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
                     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} $<TARGET_FILE_DIR:${TARGET}>
                     COMMENT "Deploy msvc runtime libraries : ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}"
