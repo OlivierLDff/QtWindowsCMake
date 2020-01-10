@@ -22,7 +22,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(Qbc)
 
 set(QT_WINDOWS_CMAKE_FOUND ON CACHE BOOL "QtWindowsCMake have been found" FORCE)
-set(QT_WINDOWS_CMAKE_VERSION "1.0.1" CACHE STRING "QtWindowsCMake version" FORCE)
+set(QT_WINDOWS_CMAKE_VERSION "1.1.0" CACHE STRING "QtWindowsCMake version" FORCE)
 
 include(CMakeParseArguments)
 
