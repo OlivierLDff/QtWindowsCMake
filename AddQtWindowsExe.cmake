@@ -142,9 +142,10 @@ function(add_qt_windows_exe TARGET)
     if(NOT ARGWIN_NO_DEPLOY)
 
       # define the application qml dirs
-      if(ARGWIN_QML_DIR)
-        set(QT_WINDOWS_APP_QML_DIR --qmldir ${ARGWIN_QML_DIR})
+      if(NOT ARGWIN_QML_DIR)
+        set(ARGWIN_QML_DIR ${QT_WINDOWS_QT_ROOT}/qml)
       endif()
+      set(QT_WINDOWS_APP_QML_DIR --qmldir ${ARGWIN_QML_DIR})
 
       if(ARGWIN_NO_TRANSLATION)
         set(QT_WINDOWS_APP_NO_TRANSLATION --no-translations)
