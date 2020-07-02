@@ -62,6 +62,8 @@ function(add_qt_windows_exe TARGET)
     ICON_RC
     DEPENDS
     QML_DIR
+    OUTPUT_TARGET
+    OUTPUT_INSTALLER_TARGET
     VERBOSE_LEVEL_DEPLOY
     )
   set(QT_WINDOWS_MULTI_VALUE_ARG)
@@ -130,18 +132,14 @@ function(add_qt_windows_exe TARGET)
 
     # ────────── DEPLOY ─────────────────────────
 
-    if(NOT ARGWIN_NO_DEPLOY)
+    set_target_properties(${TARGET}
+      PROPERTIES
+      ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>Lib"
+      LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>Lib"
+      RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>"
+    )
 
-      # When not using msvc we need to use a dedicated build directory for the target
-      # With msvc the executable is generated inside a Release/ or Debug/ folder
-      if(NOT MSVC_IDE)
-        set_target_properties(${TARGET}
-          PROPERTIES
-          ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib"
-          LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib"
-          RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin"
-          )
-      endif()
+    if(NOT ARGWIN_NO_DEPLOY)
 
       # define the application qml dirs
       if(ARGWIN_QML_DIR)
@@ -154,6 +152,10 @@ function(add_qt_windows_exe TARGET)
 
       if(ARGWIN_ALL)
         set(QT_WINDOWS_ALL ALL)
+      endif()
+
+      if(ARGWIN_OUTPUT_TARGET)
+        set(${ARGWIN_OUTPUT_TARGET} ${QT_WINDOWS_APP_DEPLOY_NAME} PARENT_SCOPE)
       endif()
 
       # Create Custom Target
@@ -227,7 +229,12 @@ function(add_qt_windows_exe TARGET)
         PACKAGE ${ARGWIN_PACKAGE}
         ${QT_WINDOWS_VERBOSE_INSTALLER}
         FILE_EXTENSION ${ARGWIN_FILE_EXTENSION}
+        OUTPUT_TARGET OUTPUT_INSTALLER_TARGET
         )
+
+    if(ARGWIN_OUTPUT_INSTALLER_TARGET)
+        set(${ARGWIN_OUTPUT_INSTALLER_TARGET} ${OUTPUT_INSTALLER_TARGET} PARENT_SCOPE)
+    endif()
 
     endif()
   endfunction()
