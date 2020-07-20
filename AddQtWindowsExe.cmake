@@ -18,7 +18,8 @@ FetchContent_Declare(
   Qbc
   GIT_REPOSITORY ${QBC_REPOSITORY}
   GIT_TAG        ${QBC_TAG}
-  )
+  GIT_SHALLOW    1
+)
 FetchContent_MakeAvailable(Qbc)
 
 include(CMakeParseArguments)
