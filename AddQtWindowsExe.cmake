@@ -114,7 +114,11 @@ function(add_qt_windows_exe TARGET)
     if(ARGWIN_VERSION)
       set(QT_WINDOWS_APP_VERSION ${ARGWIN_VERSION})
     else()
-      set(QT_WINDOWS_APP_VERSION "1.0.0")
+      if(PROJECT_VERSION)
+        set(QT_WINDOWS_APP_VERSION ${PROJECT_VERSION})
+      else()
+        set(QT_WINDOWS_APP_VERSION "1.0.0")
+      endif()
     endif()
 
     # define the application package name
