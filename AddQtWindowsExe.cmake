@@ -137,13 +137,6 @@ function(add_qt_windows_exe TARGET)
 
     # ────────── DEPLOY ─────────────────────────
 
-    set_target_properties(${TARGET}
-      PROPERTIES
-      ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>Lib"
-      LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>Lib"
-      RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>"
-    )
-
     if(NOT ARGWIN_NO_DEPLOY)
 
       # define the application qml dirs
