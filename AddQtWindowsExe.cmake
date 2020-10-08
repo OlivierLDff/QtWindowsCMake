@@ -37,7 +37,7 @@ include(CMakeParseArguments)
 #     ICON "path/to.icon.ico"
 #     ICON_RC "path/to.icon.rc"
 #     QML_DIR "path/to/qmldir"
-#     NO_TRANSATION
+#     NO_TRANSLATION
 #     VERBOSE
 #     ALL
 #)
