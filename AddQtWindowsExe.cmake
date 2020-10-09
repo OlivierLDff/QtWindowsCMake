@@ -37,7 +37,7 @@ include(CMakeParseArguments)
 #     ICON "path/to.icon.ico"
 #     ICON_RC "path/to.icon.rc"
 #     QML_DIR "path/to/qmldir"
-#     NO_TRANSLATION
+#     NO_TRANSLATIONS
 #     VERBOSE
 #     ALL
 #)
@@ -47,7 +47,7 @@ function(add_qt_windows_exe TARGET)
   set(QT_WINDOWS_OPTIONS ALL
     NO_DEPLOY
     NO_INSTALLER
-    NO_TRANSLATION
+    NO_TRANSLATIONS
     VERBOSE_INSTALLER
     )
   set(QT_WINDOWS_ONE_VALUE_ARG NAME
@@ -90,7 +90,7 @@ function(add_qt_windows_exe TARGET)
     message(STATUS "ALL                   : ${ARGWIN_ALL}")
     message(STATUS "NO_DEPLOY             : ${ARGWIN_NO_DEPLOY}")
     message(STATUS "NO_INSTALLER          : ${ARGWIN_NO_INSTALLER}")
-    message(STATUS "NO_TRANSLATION        : ${ARGWIN_NO_TRANSLATION}")
+    message(STATUS "NO_TRANSLATIONS       : ${ARGWIN_NO_TRANSLATIONS}")
     message(STATUS "VERBOSE_LEVEL_DEPLOY  : ${ARGWIN_VERBOSE_LEVEL_DEPLOY}")
     message(STATUS "VERBOSE_INSTALLER     : ${ARGWIN_VERBOSE_INSTALLER}")
     message(STATUS "---- End QtWindowsCMake Configuration ----")
@@ -145,8 +145,8 @@ function(add_qt_windows_exe TARGET)
       endif()
       set(QT_WINDOWS_APP_QML_DIR --qmldir ${ARGWIN_QML_DIR})
 
-      if(ARGWIN_NO_TRANSLATION)
-        set(QT_WINDOWS_APP_NO_TRANSLATION --no-translations)
+      if(ARGWIN_NO_TRANSLATIONS)
+        set(QT_WINDOWS_APP_NO_TRANSLATIONS --no-translations)
       endif()
 
       if(ARGWIN_ALL)
@@ -163,7 +163,7 @@ function(add_qt_windows_exe TARGET)
         DEPENDS ${TARGET} ${ARGWIN_DEPENDS}
         COMMAND ${QT_WINDOWS_QT_ROOT}/bin/windeployqt
         ${QT_WINDOWS_APP_QML_DIR}
-        ${QT_WINDOWS_APP_NO_TRANSLATION}
+        ${QT_WINDOWS_APP_NO_TRANSLATIONS}
         --$<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>
         $<TARGET_FILE_DIR:${TARGET}>
         COMMENT "call ${QT_WINDOWS_QT_ROOT}/bin/windeployqt in folder $<TARGET_FILE_DIR:${TARGET}>"
