@@ -28,7 +28,7 @@ This project is conceptually based on the great [QtAndroidCMake of Laurent Gomil
 All you have to do is to call the ```add_qt_windows_exe``` macro to create a new target that will create the Windows Deployment Targets.
 
 ```cmake
-IF(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     FetchContent_Declare(
             QtWindowsCMake
             GIT_REPOSITORY "https://github.com/OlivierLDff/QtWindowsCMake"
@@ -36,7 +36,7 @@ IF(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
         )
     FetchContent_MakeAvailable(QtWindowsCMake)
     add_qt_windows_exe(MyApp)
-ENDIF()
+endif()
 ```
 
 The you can simply run
