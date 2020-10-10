@@ -171,7 +171,7 @@ function(add_qt_windows_exe TARGET)
 
       # DEPLOY MSVC RUNTIME
       if(MSVC)
-        INCLUDE(InstallRequiredSystemLibraries)
+        include(InstallRequiredSystemLibraries)
         if(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS)
           add_custom_command(TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} $<TARGET_FILE_DIR:${TARGET}>
@@ -181,8 +181,8 @@ function(add_qt_windows_exe TARGET)
         else()
           message(WARNING "Can't find any msvc runtime library to deploy with ${QT_WINDOWS_APP_DEPLOY_NAME}")
         endif()
-        # DEPLOY MINGW C RUNTIME
-        else() # MSVC
+      # DEPLOY MINGW C RUNTIME
+      else() # MSVC
         add_custom_command(TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
           COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_ROOT}/bin/libgcc_s_dw2-1.dll $<TARGET_FILE_DIR:${TARGET}>
           COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_ROOT}/bin/libstdc++-6.dll $<TARGET_FILE_DIR:${TARGET}>
