@@ -177,7 +177,7 @@ function(add_qt_windows_exe TARGET)
         $<TARGET_FILE_DIR:${TARGET}>
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_CONF} $<TARGET_FILE_DIR:${TARGET}>/qt.conf
         COMMENT "call ${QT_WINDOWS_QT_ROOT}/bin/windeployqt in folder $<TARGET_FILE_DIR:${TARGET}>"
-        )
+      )
 
       # DEPLOY MSVC RUNTIME
       if(MSVC)
@@ -186,19 +186,18 @@ function(add_qt_windows_exe TARGET)
           add_custom_command(TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} $<TARGET_FILE_DIR:${TARGET}>
             COMMENT "Deploy msvc runtime libraries : ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}"
-
-            )
+          )
         else()
           message(WARNING "Can't find any msvc runtime library to deploy with ${QT_WINDOWS_APP_DEPLOY_NAME}")
         endif()
-      # DEPLOY MINGW C RUNTIME
-      else() # MSVC
+      else() # MINGW
+
         add_custom_command(TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
           COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_ROOT}/bin/libgcc_s_dw2-1.dll $<TARGET_FILE_DIR:${TARGET}>
           COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_ROOT}/bin/libstdc++-6.dll $<TARGET_FILE_DIR:${TARGET}>
           COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_ROOT}/bin/libwinpthread-1.dll $<TARGET_FILE_DIR:${TARGET}>
           COMMENT "Deploy mingw runtime libraries from ${QT_WINDOWS_QT_ROOT}/bin"
-          )
+        )
 
       endif()
 
@@ -239,11 +238,11 @@ function(add_qt_windows_exe TARGET)
         ${QT_WINDOWS_VERBOSE_INSTALLER}
         FILE_EXTENSION ${ARGWIN_FILE_EXTENSION}
         OUTPUT_TARGET OUTPUT_INSTALLER_TARGET
-        )
+      )
 
     if(ARGWIN_OUTPUT_INSTALLER_TARGET)
         set(${ARGWIN_OUTPUT_INSTALLER_TARGET} ${OUTPUT_INSTALLER_TARGET} PARENT_SCOPE)
     endif()
 
-    endif()
-  endfunction()
+  endif()
+endfunction()
