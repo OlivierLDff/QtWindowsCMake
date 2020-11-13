@@ -38,6 +38,8 @@ include(CMakeParseArguments)
 #     ICON_RC "path/to.icon.rc"
 #     QML_DIR "path/to/qmldir"
 #     NO_TRANSLATIONS
+#     NO_OPENGL_SW
+#     NO_ANGLE
 #     VERBOSE
 #     ALL
 #)
@@ -48,6 +50,8 @@ function(add_qt_windows_exe TARGET)
     NO_DEPLOY
     NO_INSTALLER
     NO_TRANSLATIONS
+    NO_ANGLE
+    NO_OPENGL_SW
     VERBOSE_INSTALLER
     )
   set(QT_WINDOWS_ONE_VALUE_ARG NAME
@@ -93,6 +97,8 @@ function(add_qt_windows_exe TARGET)
     message(STATUS "NO_TRANSLATIONS       : ${ARGWIN_NO_TRANSLATIONS}")
     message(STATUS "VERBOSE_LEVEL_DEPLOY  : ${ARGWIN_VERBOSE_LEVEL_DEPLOY}")
     message(STATUS "VERBOSE_INSTALLER     : ${ARGWIN_VERBOSE_INSTALLER}")
+    message(STATUS "NO_ANGLE              : ${ARGWIN_NO_ANGLE}")
+    message(STATUS "NO_OPENGL_SW          : ${ARGWIN_NO_OPENGL_SW}")
     message(STATUS "---- End QtWindowsCMake Configuration ----")
     endif() # ARGWIN_VERBOSE_LEVEL_DEPLOY
 
@@ -149,6 +155,14 @@ function(add_qt_windows_exe TARGET)
         set(QT_WINDOWS_APP_NO_TRANSLATIONS --no-translations)
       endif()
 
+      if(ARGWIN_NO_ANGLE)
+        set(QT_WINDOWS_APP_NO_ANGLE --no-angle)
+      endif()
+
+      if(ARGWIN_NO_OPENGL_SW)
+        set(QT_WINDOWS_APP_NO_OPENGL_SW --no-opengl-sw)
+      endif()
+
       if(ARGWIN_ALL)
         set(QT_WINDOWS_ALL ALL)
       endif()
@@ -173,6 +187,8 @@ function(add_qt_windows_exe TARGET)
         COMMAND ${QT_WINDOWS_QT_ROOT}/bin/windeployqt
         ${QT_WINDOWS_APP_QML_DIR}
         ${QT_WINDOWS_APP_NO_TRANSLATIONS}
+        ${QT_WINDOWS_APP_NO_ANGLE}
+        ${QT_WINDOWS_APP_NO_OPENGL_SW}
         --$<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>
         $<TARGET_FILE_DIR:${TARGET}>
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_CONF} $<TARGET_FILE_DIR:${TARGET}>/qt.conf

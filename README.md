@@ -110,6 +110,8 @@ add_qt_windows_exe(my_app
     ICON_RC "path/to.icon.rc"
     QML_DIR "path/to/qmldir"
     NO_TRANSLATION
+    NO_OPENGL_SW
+    NO_ANGLE
     VERBOSE_LEVEL_DEPLOY 1
     VERBOSE_INSTALLER
     ALL
@@ -337,6 +339,15 @@ add_qt_windows_exe(MyApp
     NO_TRANSLATION
 )
 ```
+
+**NO_OPENGL_SW**
+
+Do not deploy the software rasterizer library.
+Disable deployment of `opengl32sw.dll` (20Mo).
+
+**NO_ANGLE**
+
+Disable deployment of ANGLE. (`libEGL.dll` & `libGLESv2.dll`)
 
 **VERBOSE_LEVEL_DEPLOY**
 
