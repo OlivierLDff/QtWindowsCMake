@@ -50,6 +50,7 @@ function(add_qt_windows_exe TARGET)
     NO_DEPLOY
     NO_INSTALLER
     NO_TRANSLATIONS
+    NO_PLUGINS
     NO_ANGLE
     NO_OPENGL_SW
     VERBOSE_INSTALLER
@@ -97,6 +98,7 @@ function(add_qt_windows_exe TARGET)
     message(STATUS "NO_TRANSLATIONS       : ${ARGWIN_NO_TRANSLATIONS}")
     message(STATUS "VERBOSE_LEVEL_DEPLOY  : ${ARGWIN_VERBOSE_LEVEL_DEPLOY}")
     message(STATUS "VERBOSE_INSTALLER     : ${ARGWIN_VERBOSE_INSTALLER}")
+    message(STATUS "NO_PLUGINS            : ${ARGWIN_NO_PLUGINS}")
     message(STATUS "NO_ANGLE              : ${ARGWIN_NO_ANGLE}")
     message(STATUS "NO_OPENGL_SW          : ${ARGWIN_NO_OPENGL_SW}")
     message(STATUS "---- End QtWindowsCMake Configuration ----")
@@ -154,6 +156,10 @@ function(add_qt_windows_exe TARGET)
         set(QT_WINDOWS_APP_NO_TRANSLATIONS --no-translations)
       endif()
 
+      if(ARGWIN_NO_PLUGINS)
+        set(QT_WINDOWS_APP_NO_PLUGINS --no-plugins)
+      endif()
+
       if(ARGWIN_NO_ANGLE)
         set(QT_WINDOWS_APP_NO_ANGLE --no-angle)
       endif()
@@ -186,6 +192,7 @@ function(add_qt_windows_exe TARGET)
         COMMAND ${QT_WINDOWS_QT_ROOT}/bin/windeployqt
         ${QT_WINDOWS_APP_QML_DIR}
         ${QT_WINDOWS_APP_NO_TRANSLATIONS}
+        ${QT_WINDOWS_APP_NO_PLUGINS}
         ${QT_WINDOWS_APP_NO_ANGLE}
         ${QT_WINDOWS_APP_NO_OPENGL_SW}
         --$<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>

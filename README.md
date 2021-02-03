@@ -110,6 +110,7 @@ add_qt_windows_exe(my_app
     ICON_RC "path/to.icon.rc"
     QML_DIR "path/to/qmldir"
     NO_TRANSLATION
+    NO_PLUGINS
     NO_OPENGL_SW
     NO_ANGLE
     VERBOSE_LEVEL_DEPLOY 1
@@ -348,6 +349,10 @@ Disable deployment of `opengl32sw.dll` (20Mo).
 **NO_ANGLE**
 
 Disable deployment of ANGLE. (`libEGL.dll` & `libGLESv2.dll`)
+
+**NO_PLUGINS**
+
+Skip plugin deployment.
 
 **VERBOSE_LEVEL_DEPLOY**
 
