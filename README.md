@@ -341,6 +341,30 @@ add_qt_windows_exe(MyApp
 )
 ```
 
+**NO_WEBENGINE**
+
+Skip deployment of WebEngine (embedded Chromium).
+
+*Example:*
+
+```cmake
+add_qt_windows_exe(MyApp
+    NO_WEBENGINE
+)
+```
+
+**NO_VIRTUALKEYBOARD**
+
+Skip deployment of virtual keyboard (useful if you're building only desktop apps).
+
+*Example:*
+
+```cmake
+add_qt_windows_exe(MyApp
+    NO_VIRTUALKEYBOARD
+)
+```
+
 **NO_OPENGL_SW**
 
 Do not deploy the software rasterizer library.
