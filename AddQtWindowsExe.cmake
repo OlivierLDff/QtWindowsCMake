@@ -38,6 +38,7 @@ include(CMakeParseArguments)
 #     ICON_RC "path/to.icon.rc"
 #     QML_DIR "path/to/qmldir"
 #     NO_TRANSLATIONS
+#     NO_WEBENGINE
 #     NO_OPENGL_SW
 #     NO_ANGLE
 #     VERBOSE
@@ -51,6 +52,8 @@ function(add_qt_windows_exe TARGET)
     NO_INSTALLER
     NO_TRANSLATIONS
     NO_PLUGINS
+    NO_VIRTUALKEYBOARD
+    NO_WEBENGINE
     NO_ANGLE
     NO_OPENGL_SW
     VERBOSE_INSTALLER
@@ -96,6 +99,8 @@ function(add_qt_windows_exe TARGET)
     message(STATUS "NO_DEPLOY             : ${ARGWIN_NO_DEPLOY}")
     message(STATUS "NO_INSTALLER          : ${ARGWIN_NO_INSTALLER}")
     message(STATUS "NO_TRANSLATIONS       : ${ARGWIN_NO_TRANSLATIONS}")
+    message(STATUS "NO_VIRTUALKEYBOARD    : ${ARGWIN_NO_VIRTUALKEYBOARD}")
+    message(STATUS "NO_WEBENGINE          : ${ARGWIN_NO_WEBENGINE}")
     message(STATUS "VERBOSE_LEVEL_DEPLOY  : ${ARGWIN_VERBOSE_LEVEL_DEPLOY}")
     message(STATUS "VERBOSE_INSTALLER     : ${ARGWIN_VERBOSE_INSTALLER}")
     message(STATUS "NO_PLUGINS            : ${ARGWIN_NO_PLUGINS}")
@@ -160,6 +165,14 @@ function(add_qt_windows_exe TARGET)
         set(QT_WINDOWS_APP_NO_PLUGINS --no-plugins)
       endif()
 
+      if(ARGWIN_NO_VIRTUALKEYBOARD)
+        set(QT_WINDOWS_APP_NO_VIRTUALKEYBOARD --no-virtualkeyboard)
+      endif()
+
+      if(ARGWIN_NO_WEBENGINE)
+        set(QT_WINDOWS_APP_NO_WEBENGINE --no-webenginecore --no-webengine --no-webenginewidgets)
+      endif()
+
       if(ARGWIN_NO_ANGLE)
         set(QT_WINDOWS_APP_NO_ANGLE --no-angle)
       endif()
@@ -193,6 +206,8 @@ function(add_qt_windows_exe TARGET)
         ${QT_WINDOWS_APP_QML_DIR}
         ${QT_WINDOWS_APP_NO_TRANSLATIONS}
         ${QT_WINDOWS_APP_NO_PLUGINS}
+        ${QT_WINDOWS_APP_NO_VIRTUALKEYBOARD}
+        ${QT_WINDOWS_APP_NO_WEBENGINE}
         ${QT_WINDOWS_APP_NO_ANGLE}
         ${QT_WINDOWS_APP_NO_OPENGL_SW}
         --$<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>
