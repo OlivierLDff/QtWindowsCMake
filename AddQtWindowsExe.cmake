@@ -1,8 +1,10 @@
 # find the Qt root directory
-if(NOT Qt5Core_DIR)
-  find_package(Qt5Core REQUIRED)
+if(NOT Qt5Core_DIR AND NOT Qt6Core_DIR)
+  if(NOT DEFINED QT_VERSION_MAJOR)
+    find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
+  endif()
 endif()
-get_filename_component(QT_WINDOWS_QT_ROOT "${Qt5Core_DIR}/../../.." ABSOLUTE)
+get_filename_component(QT_WINDOWS_QT_ROOT "${Qt${QT_VERSION_MAJOR}Core_DIR}/../../.." ABSOLUTE)
 message(STATUS "Found Qt for Windows: ${QT_WINDOWS_QT_ROOT}")
 
 set(QT_WINDOWS_QT_ROOT ${QT_WINDOWS_QT_ROOT})
