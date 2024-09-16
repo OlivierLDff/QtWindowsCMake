@@ -241,7 +241,7 @@ function(add_qt_windows_exe TARGET)
         add_custom_command(
           TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
           COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_CONF} $<TARGET_FILE_DIR:${TARGET}>/qt.conf
-          COMMENT "Copy qt.conf to $<TARGET_FILE_DIR:${TARGET}>"
+          COMMENT "Copy qt.conf to $<TARGET_FILE_DIR:${TARGET}>\n"
         )
       endif()
 
@@ -251,7 +251,7 @@ function(add_qt_windows_exe TARGET)
         if(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS)
           add_custom_command(TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} $<TARGET_FILE_DIR:${TARGET}>
-            COMMENT "Deploy msvc runtime libraries : ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}"
+            COMMENT "Deploy msvc runtime libraries : ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}\n"
           )
         else()
           message(WARNING "Can't find any msvc runtime library to deploy with ${QT_WINDOWS_APP_DEPLOY_NAME}")
