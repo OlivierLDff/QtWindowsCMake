@@ -66,6 +66,7 @@ function(add_qt_windows_exe TARGET)
     NO_OPENGL_SW
     VERBOSE_INSTALLER
     NO_QT_CONF
+    NO_QMLTOOLING
     )
   set(QT_WINDOWS_ONE_VALUE_ARG NAME
     DEPLOY_NAME
@@ -118,6 +119,7 @@ function(add_qt_windows_exe TARGET)
       message(STATUS "NO_ANGLE              : ${ARGWIN_NO_ANGLE}")
     endif()
     message(STATUS "NO_OPENGL_SW          : ${ARGWIN_NO_OPENGL_SW}")
+    message(STATUS "NO_QMLTOOLING         : ${ARGWIN_NO_QMLTOOLING}")
     message(STATUS "---- End QtWindowsCMake Configuration ----")
     endif() # ARGWIN_VERBOSE_LEVEL_DEPLOY
 
@@ -242,6 +244,16 @@ function(add_qt_windows_exe TARGET)
           TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
           COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_CONF} $<TARGET_FILE_DIR:${TARGET}>/qt.conf
           COMMENT "Copy qt.conf to $<TARGET_FILE_DIR:${TARGET}>\n"
+        )
+      endif()
+
+      if(ARGWIN_NO_QMLTOOLING)
+        # Delete the qmltooling folder created by windeployqt
+        # --no-qmltooling isn't working, even though it's in the help
+        add_custom_command(
+          TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
+          COMMAND ${CMAKE_COMMAND} -E remove_directory $<TARGET_FILE_DIR:${TARGET}>/qmltooling
+          COMMENT "Remove qmltooling folder in $<TARGET_FILE_DIR:${TARGET}>\n"
         )
       endif()
 
