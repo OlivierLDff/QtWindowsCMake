@@ -65,6 +65,7 @@ function(add_qt_windows_exe TARGET)
     NO_ANGLE
     NO_OPENGL_SW
     VERBOSE_INSTALLER
+    NO_QT_CONF
     )
   set(QT_WINDOWS_ONE_VALUE_ARG NAME
     DEPLOY_NAME
@@ -112,6 +113,7 @@ function(add_qt_windows_exe TARGET)
     message(STATUS "VERBOSE_LEVEL_DEPLOY  : ${ARGWIN_VERBOSE_LEVEL_DEPLOY}")
     message(STATUS "VERBOSE_INSTALLER     : ${ARGWIN_VERBOSE_INSTALLER}")
     message(STATUS "NO_PLUGINS            : ${ARGWIN_NO_PLUGINS}")
+    message(STATUS "NO_QT_CONF            : ${ARGWIN_NO_QT_CONF}")
     if(QT_VERSION_MAJOR LESS_EQUAL 5)
       message(STATUS "NO_ANGLE              : ${ARGWIN_NO_ANGLE}")
     endif()
@@ -199,14 +201,24 @@ function(add_qt_windows_exe TARGET)
         set(${ARGWIN_OUTPUT_TARGET} ${QT_WINDOWS_APP_DEPLOY_NAME} PARENT_SCOPE)
       endif()
 
-      # Generate qt.conf
-      set(QT_WINDOWS_QT_CONF ${CMAKE_CURRENT_BINARY_DIR}/qt.conf)
-      file(WRITE ${QT_WINDOWS_QT_CONF}
-        "[Paths]\n"
-        "Plugins = .\n"
-        "Imports = .\n"
-        "Qml2Imports = .\n"
-      )
+      if(NOT ARGWIN_NO_QT_CONF)
+        set(QT_WINDOWS_QT_CONF ${CMAKE_CURRENT_BINARY_DIR}/qt.conf)
+        # windeployqt used to deploy qml files in the same folder as the executable
+        # But with Qt6, qml files are deployed in a qml folder
+        # Only tested with Qt5.15.2 and Qt6.6.2
+        # Anyway with Qt6 you shouldn't use this script anymore and use the official install way
+        if(QT_VERSION_MAJOR LESS_EQUAL 5)
+          set(qml_import_path ".")
+        else()
+          set(qml_import_path "./qml")
+        endif()
+        file(WRITE ${QT_WINDOWS_QT_CONF}
+          "[Paths]\n"
+          "Plugins = .\n"
+          "Imports = .\n"
+          "Qml2Imports = ${qml_import_path}\n"
+        )
+      endif()
 
       # Create Custom Target
       add_custom_target(${QT_WINDOWS_APP_DEPLOY_NAME}
@@ -222,9 +234,16 @@ function(add_qt_windows_exe TARGET)
         ${QT_WINDOWS_APP_NO_OPENGL_SW}
         --$<$<CONFIG:Debug>:debug>$<$<NOT:$<CONFIG:Debug>>:release>
         $<TARGET_FILE_DIR:${TARGET}>
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_CONF} $<TARGET_FILE_DIR:${TARGET}>/qt.conf
         COMMENT "call ${QT_WINDOWS_QT_ROOT}/bin/windeployqt in folder $<TARGET_FILE_DIR:${TARGET}>"
       )
+
+      if(NOT ARGWIN_NO_QT_CONF)
+        add_custom_command(
+          TARGET ${QT_WINDOWS_APP_DEPLOY_NAME} POST_BUILD
+          COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_WINDOWS_QT_CONF} $<TARGET_FILE_DIR:${TARGET}>/qt.conf
+          COMMENT "Copy qt.conf to $<TARGET_FILE_DIR:${TARGET}>"
+        )
+      endif()
 
       # DEPLOY MSVC RUNTIME
       if(MSVC)
